@@ -19,10 +19,7 @@ int main() {
     }
     
     parse(input, argArray);
-    printf("parsed: \n");
-    for (int i = 0; argArray[i] != NULL; i++) {
-        printf("%s \n", argArray[i]);
-    }
+    execvp(argArray[0], argArray);
     
     return 0;
 }
