@@ -6,6 +6,9 @@
 #include <errno.h>
 #include "parse.h"
 #include "funcs.h"
+#include "cd.h"
+#include "exit.h"
+#include "err.h"
 
 int main() {
     char input[1024];
