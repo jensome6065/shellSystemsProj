@@ -30,11 +30,18 @@ int main() {
     }
     for (int j = 0; j<i; j++){
         parse(carr[j], argArray);
-        execvp(carr[j], argArray);
+        pid_t child = fork();
+        pid_t w = NULL;
+        int status;
+        if(child<0){
+            err();
+        } else if (child == 0){
+            execvp(carr[j], argArray);
+            pid_t p = getpid();
+            w = wait(&status);
+        } 
+        waitpid(w, &status, 0);
     }
-    //account for pipes and semicolons
-    // parse(input, argArray);
-    // execvp(argArray[0], argArray);
     
     return 0;
 }
