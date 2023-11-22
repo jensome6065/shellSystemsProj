@@ -3,14 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include <errno.h>
 #include "parse.h"
-
-int err() {
-    printf("errno: %d \n", errno);
-    printf("%s \n", strerror(errno));
-    exit(1);
-}
+#include "err.h"
 
 void parse(char* line, char** argArray) {
     char* token;

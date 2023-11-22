@@ -2,13 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <errno.h>
-
-int err() {
-    printf("errno: %d \n", errno);
-    printf("%s \n", strerror(errno));
-    exit(1);
-}
+#include "cd.h"
+#include "err.h"
 
 void chDir(char* input) {
     char oldDir[1024];
@@ -23,17 +18,17 @@ void chDir(char* input) {
     } 
     else {
         if (strcmp(input, "-") == 0) {
-            char* prevDir = getenv("OLDPWD");
+            char* prevDir = getenv("oldDir");
             if (prevDir != NULL) {
                 if (chdir(prevDir) != 0) {
                     err();
                 }
-                if (setenv("OLDPWD", oldPwd, 1) != 0) {
+                if (setenv("oldDir", oldDir, 1) != 0) {
                     err();
                 }
             } 
             else {
-                fprintf(stderr, "cd: OLDPWD not set \n");
+                fprintf(stderr, "cd: oldDir not set \n");
                 err();
             }
         } 
@@ -70,7 +65,7 @@ void chDir(char* input) {
                     err();
                 }
             }
-            if (setenv("OLDPWD", oldPwd, 1) != 0) {
+            if (setenv("oldDir", oldDir, 1) != 0) {
                 err();
             }
         }
