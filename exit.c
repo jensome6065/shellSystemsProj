@@ -6,7 +6,8 @@
 
 void exitCom(int exitstatus) {
     if (exitstatus==0){
-        printf("exiting\n");
+        printf("exiting normally\n");
         exit(0);
     }
+    else exit(1);
 }
