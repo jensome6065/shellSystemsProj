@@ -28,8 +28,11 @@ int main() {
         carr[i] = check;
         i++;
     }
-    for (int j = 0; j<i; j++){
+    for (int j = 0; j<i; j++){//need to check if exit or cd btw 
         parse(carr[j], argArray);
+        if (strcmp(carr[j], "exit")==0){
+            exitCom(0);
+        }
         pid_t child = fork();
         pid_t w = NULL;
         int status;
