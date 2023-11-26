@@ -28,10 +28,14 @@ int main() {
         carr[i] = check;
         i++;
     }
-    for (int j = 0; j<i; j++){//need to check if exit or cd btw 
+    for (int j = 0; j<i; j++){
         parse(carr[j], argArray);
         if (strcmp(carr[j], "exit")==0){
             exitCom(0);
+        }
+        if (strcmp(carr[j], "|")==0){
+        }
+        if (strcmp(carr[j], "cd")==0){
         }
         pid_t child = fork();
         pid_t w = NULL;
