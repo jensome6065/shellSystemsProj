@@ -6,6 +6,7 @@
 #include <errno.h>
 #include "parse.h"
 #include "funcs.h"
+#include "pipes.h"
 #include "cd.h"
 #include "exit.h"
 #include "err.h"
