@@ -34,7 +34,10 @@ int main() {
         if (strcmp(carr[j], "exit")==0){
             exitCom(0);
         }
-        if (strcmp(carr[j], "|")==0){
+        if (strcmp(carr[j-1], "|")==0){//then use carr[j-2] and carr[j] excluding edg
+            if (j-2>=0){
+                pipee(carr[j-2], carr[j]);
+            }
         }
         if (strcmp(carr[j], "cd")==0){
         }
