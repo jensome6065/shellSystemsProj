@@ -30,28 +30,33 @@ int main() {
         i++;
     }
     for (int j = 0; j<i; j++){
-        parse(carr[j], argArray);
+        char* temp = carr+j;
+        parse(temp, argArray);//\redirection use argarray[]
         if (strcmp(carr[j], "exit")==0){
             exitCom(0);
         }
-        if (strcmp(carr[j-1], "|")==0){//then use carr[j-2] and carr[j] excluding edg
-            if (j-2>=0){
-                pipee(carr[j-2], carr[j]);
-            }
-        }
         if (strcmp(carr[j], "cd")==0){
         }
-        pid_t child = fork();
-        pid_t w = NULL;
-        int status;
-        if(child<0){
-            err();
-        } else if (child == 0){
-            execvp(carr[j], argArray);
-            pid_t p = getpid();
-            w = wait(&status);
-        } 
-        waitpid(w, &status, 0);
+        if (strchr(carr[j], '|') != NULL){
+            for (int k = 0; k<strlen(*argArray); k++){
+                if (strcmp(argArray[k-1], "|") ==0 && k-2 >= 0){
+                    pipee(argArray[k-2], argArray[k], argArray);
+                }
+            }
+        }
+        else {
+            pid_t child = fork();
+            pid_t w = NULL;
+            int status;
+            if(child<0){
+                err();
+            } else if (child == 0){
+                execvp(carr[j], argArray);
+                pid_t p = getpid();
+                w = wait(&status);
+            } 
+            waitpid(w, &status, 0);
+        }
     }
     
     return 0;

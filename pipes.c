@@ -6,7 +6,7 @@
 #include "pipes.h"
 #include "err.h"
 
-void pipee(char* in, char* out){//or not void? should it return something
+void pipee(char* in, char* out, char** arr){
     FILE* p1;
     FILE* p2;
     int files[2];
@@ -22,8 +22,12 @@ void pipee(char* in, char* out){//or not void? should it return something
         err();
     }
     else{
-        files[0]=fileno(p2);
+        files[1]=fileno(p2);
     }
+    dup2(files[0], STDOUT_FILENO);//or files [1]
+    execvp(in, arr);
+    dup2(files[1], STDIN_FILENO);
+    execvp(out, arr);
     pclose(p1);
     pclose(p2);
 }
