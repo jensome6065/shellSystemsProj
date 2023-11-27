@@ -12,50 +12,53 @@
 #include "err.h"
 
 int main() {
-    char input[1024];
-    char* argArray[64];
-    char* check;
-    char** carr = NULL;
+    int loop = 1;
+    while (loop){
+        char input[1024];
+        char* argArray[64];
+        char* check;
+        char** carr = NULL;
 
-    printf("enter a command: ");
-    fgets(input, sizeof(input), stdin);
-    char* ip = &input;
-    if (input[strlen(input) - 1] == '\n') {
-        input[strlen(input) - 1] = '\0';
-    }
-    int i = 0;
-    while ((check = strsep(&ip, ";"))!=NULL){
-        carr = (char**)realloc(carr, (i+1)*sizeof(char*));
-        carr[i] = check;
-        i++;
-    }
-    for (int j = 0; j<i; j++){
-        char* lcopy = strdup(carr[j]);
-        parse(carr[j], argArray);//redirection use argarray[]
-        if (strcmp(carr[j], "exit")==0){
-            exitCom(0);
+        printf("enter a command: ");
+        fgets(input, sizeof(input), stdin);
+        char* ip = &input;
+        if (input[strlen(input) - 1] == '\n') {
+            input[strlen(input) - 1] = '\0';
         }
-        if (strcmp(carr[j], "cd")==0){
+        int i = 0;
+        while ((check = strsep(&ip, ";"))!=NULL){
+            carr = (char**)realloc(carr, (i+1)*sizeof(char*));
+            carr[i] = check;
+            i++;
         }
-        if (strchr(lcopy, '|') != NULL){
-            for (int k = 0; k<strlen(*argArray); k++){
-                if (strcmp(argArray[k-1], "|") ==0 && k-2 >= 0){
-                    pipee(argArray[k-2], argArray[k], argArray);
+        for (int j = 0; j<i; j++){
+            char* lcopy = strdup(carr[j]);
+            parse(carr[j], argArray);//redirection use argarray[]
+            if (strcmp(carr[j], "exit")==0){
+                exitCom(0);
+            }
+            if (strcmp(carr[j], "cd")==0){
+            }
+            if (strchr(lcopy, '|') != NULL){
+                for (int k = 0; k<strlen(*argArray); k++){
+                    if (strcmp(argArray[k-1], "|") ==0 && k-2 >= 0){
+                        pipee(argArray[k-2], argArray[k], argArray);
+                    }
                 }
             }
-        }
-        else {
-            pid_t child = fork();
-            pid_t w = NULL;
-            int status;
-            if(child<0){
-                err();
-            } else if (child == 0){
-                execvp(carr[j], argArray);
-                pid_t p = getpid();
-                w = wait(&status);
-            } 
-            waitpid(w, &status, 0);
+            else {
+                pid_t child = fork();
+                pid_t w = NULL;
+                int status;
+                if(child<0){
+                    err();
+                } else if (child == 0){
+                    execvp(carr[j], argArray);
+                    pid_t p = getpid();
+                    w = wait(&status);
+                } 
+                waitpid(w, &status, 0);
+            }
         }
     }
     return 0;

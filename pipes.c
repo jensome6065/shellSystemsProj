@@ -24,9 +24,9 @@ void pipee(char* in, char* out, char** arr){
     else{
         files[1]=fileno(p2);
     }
-    dup2(files[0], STDOUT_FILENO);//or files [1]
+    dup2(files[1], STDOUT_FILENO);//or files [1]
     execvp(in, arr);
-    dup2(files[1], STDIN_FILENO);
+    dup2(files[0], STDIN_FILENO);
     execvp(out, arr);
     pclose(p1);
     pclose(p2);
