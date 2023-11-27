@@ -30,14 +30,14 @@ int main() {
         i++;
     }
     for (int j = 0; j<i; j++){
-        char* temp = carr+j;
-        parse(temp, argArray);//\redirection use argarray[]
+        char* lcopy = strdup(carr[j]);
+        parse(carr[j], argArray);//redirection use argarray[]
         if (strcmp(carr[j], "exit")==0){
             exitCom(0);
         }
         if (strcmp(carr[j], "cd")==0){
         }
-        if (strchr(carr[j], '|') != NULL){
+        if (strchr(lcopy, '|') != NULL){
             for (int k = 0; k<strlen(*argArray); k++){
                 if (strcmp(argArray[k-1], "|") ==0 && k-2 >= 0){
                     pipee(argArray[k-2], argArray[k], argArray);
@@ -58,6 +58,5 @@ int main() {
             waitpid(w, &status, 0);
         }
     }
-    
     return 0;
 }
