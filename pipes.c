@@ -3,21 +3,23 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <fcntl.h>
 #include "pipes.h"
 #include "err.h"
 
-void pipee(char* in, char* out, char** arr){
+void pipee(char* in, char* out, char** arr){//pipe, redir, readme, textfile, comments, sigs
     FILE* p1;
     FILE* p2;
     int files[2];
     p1 = popen(in, "r");
-    p2 = popen(out, "w");
     if (p1==NULL){
         err();
     }
     else{
         files[0]=fileno(p1);
     }
+    int temp = open("tempfile", O_RDWR|O_TRUNC|O_CREAT, 600);
+    p2 = popen(out, "w");
     if (p2==NULL){
         err();
     }

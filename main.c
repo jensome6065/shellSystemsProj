@@ -11,7 +11,7 @@
 #include "exit.h"
 #include "err.h"
 
-int main() {
+int main() {//need end of file kill shell in stdin
     while (1){
         char input[1024];
         char* argArray[64];
