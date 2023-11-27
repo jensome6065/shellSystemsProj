@@ -18,7 +18,6 @@ void pipee(char* in, char* out, char** arr){//pipe, redir, readme, textfile, com
     else{
         files[0]=fileno(p1);
     }
-    int temp = open("tempfile", O_RDWR|O_TRUNC|O_CREAT, 600);
     p2 = popen(out, "w");
     if (p2==NULL){
         err();
@@ -26,10 +25,12 @@ void pipee(char* in, char* out, char** arr){//pipe, redir, readme, textfile, com
     else{
         files[1]=fileno(p2);
     }
-    dup2(files[1], STDOUT_FILENO);//or files [1]
-    execvp(in, arr);
+    int stdoutdup = dup(STDOUT_FILENO);
+    dup2(files[1], STDOUT_FILENO);
     dup2(files[0], STDIN_FILENO);
+    execvp(in, arr);
     execvp(out, arr);
     pclose(p1);
     pclose(p2);
+    dup2(stdoutdup, 1);
 }

@@ -2,6 +2,6 @@
 #define CD_H
 
 int err();
-void chDir(char* input);
+void changedir(char* input);
 
 #endif

@@ -5,7 +5,6 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include "parse.h"
-#include "funcs.h"
 #include "pipes.h"
 #include "cd.h"
 #include "exit.h"
@@ -37,6 +36,7 @@ int main() {//need end of file kill shell in stdin
                 exitCom(0);
             }
             if (strcmp(carr[j], "cd")==0){
+                changedir(argArray[1]);
             }
             if (strchr(lcopy, '|') != NULL){
                 for (int k = 0; k<strlen(*argArray); k++){
