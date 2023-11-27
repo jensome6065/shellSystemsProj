@@ -12,8 +12,7 @@
 #include "err.h"
 
 int main() {
-    int loop = 1;
-    while (loop){
+    while (1){
         char input[1024];
         char* argArray[64];
         char* check;
