@@ -8,6 +8,7 @@
 #include "pipes.h"
 #include "cd.h"
 #include "exit.h"
+#include "redirect.h"
 #include "err.h"
 
 int main() {
