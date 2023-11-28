@@ -19,4 +19,4 @@ err.o: err.c
 clean:
 	@rm -f *.o
 	@rm -f *.out
-	@rm -f shell.out
+	@rm -f tempfile
