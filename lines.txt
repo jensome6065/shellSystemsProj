@@ -1,3 +1,4 @@
 echo "hi"
-echo "oksdvpisns"
-echo "serg"
+ls 
+echo "hello"
+ls -l
