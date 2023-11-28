@@ -65,7 +65,6 @@ int main() {
                 } 
                 waitpid(w, &status, 0);
             }
-            printf("%d\n", getpid());
         }
     }
     return 0;
