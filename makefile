@@ -15,6 +15,6 @@ err.o: err.c
 pipes.o: pipes.c 
 	@gcc -c pipes.c
 clean:
-	rm -f *.o
-	rm -f *.out
-	rm -f shell.out
+	@rm -f *.o
+	@rm -f *.out
+	@rm -f shell.out
