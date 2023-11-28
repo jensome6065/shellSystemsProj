@@ -21,38 +21,49 @@ int main() {
         printf("enter a command: ");
         fgets(input, sizeof(input), stdin);
         char* ip = input;
+
         if (input[strlen(input) - 1] == '\n') {
             input[strlen(input) - 1] = '\0';
         }
+
         int i = 0;
-        while ((check = strsep(&ip, ";"))!=NULL){
+        while ((check = strsep(&ip, ";"))!=NULL) {
             carr = (char**)realloc(carr, (i+1)*sizeof(char*));
             carr[i] = check;
             i++;
         }
-        for (int j = 0; j<i; j++){
+
+        for (int j = 0; j<i; j++) {
             char* lcopy = strdup(carr[j]);
             parse(carr[j], argArray);
-            if (strcmp(carr[j], "exit")==0){
+
+            if (strcmp(carr[j], "exit")==0) {
                 exitCom(0);
             }
-            if (strcmp(carr[j], "cd")==0){
+
+            if (strcmp(carr[j], "cd")==0) {
                 changeDir(argArray[1]);
             }
-            if (strchr(lcopy, '|') != NULL){
+
+            if (strchr(lcopy, '|') != NULL) {
                 for (int k = 0; k<strlen(*argArray); k++){
                     if (strcmp(argArray[k-1], "|") ==0 && k-2 >= 0){
                         pipee(argArray[k-2], argArray[k], argArray);
                     }
                 }
             }
+
+            if (strchr(lcopy, '<') != NULL || strchr(lcopy, '>') != NULL) {
+                redirect(argArray[0], argArray);
+            }
+
             else {
                 pid_t child = fork();
                 pid_t w = 0;
                 int status;
-                if(child<0){
+                if(child<0) {
                     err();
-                } else if (child == 0){
+                } else if (child == 0) {
                     execvp(carr[j], argArray);
                     pid_t p = getpid();
                     w = wait(&status);
