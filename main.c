@@ -10,8 +10,8 @@
 #include "exit.h"
 #include "err.h"
 
-int main() {//need end of file kill shell in stdin
-    while (1){
+int main() {
+    while (1) {
         char input[1024];
         char* argArray[64];
         char* check;
@@ -31,12 +31,12 @@ int main() {//need end of file kill shell in stdin
         }
         for (int j = 0; j<i; j++){
             char* lcopy = strdup(carr[j]);
-            parse(carr[j], argArray);//redirection use argarray[]
+            parse(carr[j], argArray);
             if (strcmp(carr[j], "exit")==0){
                 exitCom(0);
             }
             if (strcmp(carr[j], "cd")==0){
-                changedir(argArray[1]);
+                changeDir(argArray[1]);
             }
             if (strchr(lcopy, '|') != NULL){
                 for (int k = 0; k<strlen(*argArray); k++){
