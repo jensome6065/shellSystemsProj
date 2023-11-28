@@ -20,7 +20,7 @@ int main() {
 
         printf("enter a command: ");
         fgets(input, sizeof(input), stdin);
-        char* ip = &input;
+        char* ip = input;
         if (input[strlen(input) - 1] == '\n') {
             input[strlen(input) - 1] = '\0';
         }
@@ -48,7 +48,7 @@ int main() {
             }
             else {
                 pid_t child = fork();
-                pid_t w = NULL;
+                pid_t w = 0;
                 int status;
                 if(child<0){
                     err();
