@@ -36,26 +36,22 @@ int main() {
         for (int j = 0; j<i; j++) {
             char* lcopy = strdup(carr[j]);
             parse(carr[j], argArray);
-
             if (strcmp(carr[j], "exit")==0) {
                 exitCom(0);
             }
-
-            if (strcmp(carr[j], "cd")==0) {
+            else if (strcmp(carr[j], "cd")==0) {
                 changeDir(argArray[1]);
             }
-            if (strchr(lcopy, '|') != NULL){
+            else if (strchr(lcopy, '|') != NULL){
                 for (int k = 0; k<strlen(*argArray)+1; k++){
                     if (strcmp(argArray[k-1], "|") ==0 && k-2 >= 0){
                         pipee(argArray[k-2], argArray[k], argArray);
                     }
                 }
             }
-
-            if (strchr(lcopy, '<') != NULL || strchr(lcopy, '>') != NULL) {
+            else if (strchr(lcopy, '<') != NULL || strchr(lcopy, '>') != NULL) {
                 redirect(argArray[0], argArray);
             }
-
             else {
                 pid_t child = fork();
                 pid_t w = 0;
@@ -69,6 +65,7 @@ int main() {
                 } 
                 waitpid(w, &status, 0);
             }
+            printf("%d\n", getpid());
         }
     }
     return 0;
