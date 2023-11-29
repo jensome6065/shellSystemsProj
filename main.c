@@ -37,17 +37,18 @@ int main() {
             char* lcopy = strdup(carr[j]);
             parse(carr[j], argArray);
             if (strcmp(carr[j], "exit")==0) {
-                exitCom(0);
+                exitCom();
             }
             else if (strcmp(carr[j], "cd")==0) {
                 changeDir(argArray[1]);
             }
             else if (strchr(lcopy, '|') != NULL){
-                for (int k = 0; k<strlen(*argArray)+1; k++){
-                    if (strcmp(argArray[k-1], "|") ==0 && k-2 >= 0){
-                        pipee(argArray[k-2], argArray[k], argArray);
-                    }
-                }
+                // for (int k = 0; k<strlen(*argArray)+1; k++){
+                //     if (strcmp(argArray[k-1], "|") ==0 && k-2 >= 0){
+                //         pipee(argArray[k-2], argArray[k], argArray);
+                //     }
+                // }
+                pipee(lcopy);
             }
             else if (strchr(lcopy, '<') != NULL || strchr(lcopy, '>') != NULL) {
                 redirect(argArray[0], argArray);
