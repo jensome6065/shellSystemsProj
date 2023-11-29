@@ -11,6 +11,8 @@
 void redirect(char* command, char** args) {
     int input = -1; 
     int output = -1;
+    int stdincopy = dup(STDIN_FILENO);
+    int stdoutcopy = dup(STDOUT_FILENO);
     for (int i = 0; args[i] != NULL; i++) {
         if (strcmp(args[i], "<") == 0) {
             input = open(args[i + 1], O_RDONLY);
@@ -34,5 +36,7 @@ void redirect(char* command, char** args) {
         }
     }
     execvp(command, args);
+    dup2(stdincopy, STDIN_FILENO);
+    dup2(stdoutcopy, STDOUT_FILENO);
     err();
 }
