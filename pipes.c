@@ -26,33 +26,26 @@ void pipee(char* comm){//pipe, redir, readme, textfile, comments, sigs
     int stdoutcopy = dup(STDOUT_FILENO);
     dup2(temp, STDOUT_FILENO);
     pid_t child = fork();
-    //pid_t w = 0;
     int status;
     if(child<0) {
         err();
     } else if (child == 0) {//program that sleeps and outputs text
         if (execvp(part1, argarr)==-1) err();
-        // else w=getpid();
-        // w = wait(&status);
-        // if(w==-1) err();
     } 
-    //waitpid(child, &status, 0);
+    pid_t w = wait(&status);
+    if(w==-1) err();
     parse(part2, argarr);
-    dup2(stdoutcopy, STDOUT_FILENO);    
     int stdincopy = dup(STDIN_FILENO);
     dup2(temp, STDIN_FILENO);
-    child = fork();
-    if(child<0) {
+    dup2(stdoutcopy, STDOUT_FILENO);    
+    pid_t child1 = fork();
+    if(child1<0) {
         err();
-    } else if (child == 0) {
+    } else if (child1 == 0) {
         if (execvp(part2, argarr)==-1) err();
-        // else w=getpid();
-        // w = wait(&status);
-        // if(w==-1) err();
     } 
-    // waitpid(child, &status, 0); 
-    // pid_t w = wait(&status);
-    // if(w==-1) err();
+    pid_t w1 = wait(&status);
+    if(w1==-1) err();
     dup2(stdincopy, STDIN_FILENO);
     close(temp);
  }
