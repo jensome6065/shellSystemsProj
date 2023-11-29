@@ -9,7 +9,7 @@
 #include "pipes.h"
 #include "err.h"
 
-void pipee(char* comm){//pipe, redir, readme, textfile, comments, sigs
+void pipee(char* comm){
     char* part1;
     char* part2;
     char* copy = strdup(comm);
@@ -20,7 +20,7 @@ void pipee(char* comm){//pipe, redir, readme, textfile, comments, sigs
     parse(part1, argarr);
     comm ++;
     part2 = comm;
-    int temp = open("tempfile", O_RDWR | O_CREAT | O_TRUNC, 0777);//rem to remove
+    int temp = open("tempfile", O_RDWR | O_CREAT | O_TRUNC, 0777);
     if (temp == -1) {
         err();
     }
@@ -30,7 +30,7 @@ void pipee(char* comm){//pipe, redir, readme, textfile, comments, sigs
     int status;
     if(child<0) {
         err();
-    } else if (child == 0) {//program that sleeps and outputs text
+    } else if (child == 0) {
         if (execvp(part1, argarr)==-1) err();
     } 
     pid_t w = wait(&status);
