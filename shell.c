@@ -3,7 +3,6 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
-#include "parse.h"
 #include "err.h"
 
 void parse(char* line, char** argArray) {
@@ -15,4 +14,20 @@ void parse(char* line, char** argArray) {
         }
     }
     argArray[i] = NULL;
+}
+
+void exitCom() {
+    printf("\nexiting normally \n");
+    exit(0);
+}
+
+void changeDir(char* input) {
+    if (input == NULL) {
+        input = "..";
+    }
+    if (chdir(input) != 0) {
+        err();
+    }
+    chdir(input);
+    printf("directory changed \n");
 }

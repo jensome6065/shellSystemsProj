@@ -5,7 +5,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/wait.h>
-#include "parse.h"
+#include "shell.h"
 #include "pipes.h"
 #include "err.h"
 

@@ -4,10 +4,8 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <errno.h>
-#include "parse.h"
+#include "shell.h"
 #include "pipes.h"
-#include "cd.h"
-#include "exit.h"
 #include "redirect.h"
 #include "err.h"
 
