@@ -18,9 +18,11 @@ int main() {
         char* check;
         char** carr = NULL;
 
-        printf("enter a command: ");
+        printf("command: ");
+        fflush(stdout);
         fgets(input, sizeof(input), stdin);
         char* ip = input;
+        printf("%s \n", input);
 
         if (input[strlen(input) - 1] == '\n') {
             input[strlen(input) - 1] = '\0';
@@ -37,7 +39,8 @@ int main() {
             char* lcopy = strdup(carr[j]);
             parse(carr[j], argArray);
             if (strcmp(carr[j], "exit")==0) {
-                exitCom(0);
+                exitCom();
+                break;
             }
             else if (strcmp(carr[j], "cd")==0) {
                 changeDir(argArray[1]);
@@ -54,16 +57,14 @@ int main() {
             }
             else {
                 pid_t child = fork();
-                pid_t w = 0;
                 int status;
                 if(child<0) {
                     err();
                 } else if (child == 0) {
                     execvp(carr[j], argArray);
-                    pid_t p = getpid();
-                    w = wait(&status);
+                    pid_t p = getpid();  
                 } 
-                waitpid(w, &status, 0);
+                waitpid(child, &status, 0);
             }
         }
     }

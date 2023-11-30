@@ -13,4 +13,5 @@ void changeDir(char* input) {
         err();
     }
     chdir(input);
+    printf("directory changed \n");
 }
