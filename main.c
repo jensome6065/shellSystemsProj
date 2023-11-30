@@ -22,7 +22,7 @@ int main() {
         fflush(stdout);
         fgets(input, sizeof(input), stdin);
         char* ip = input;
-        printf("%s \n", input);
+        printf("%s", input);
 
         if (input[strlen(input) - 1] == '\n') {
             input[strlen(input) - 1] = '\0';

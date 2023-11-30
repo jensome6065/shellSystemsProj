@@ -5,6 +5,6 @@
 #include "err.h"
 
 void exitCom() {
-    printf("exiting normally\n");
+    printf("\nexiting normally \n");
     exit(0);
 }
