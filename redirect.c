@@ -13,15 +13,25 @@ void redirect(char* command, char** args) {
     int output = -1;
     for (int i = 0; args[i] != NULL; i++) {
         if (strcmp(args[i], "<") == 0) {
-            input = open(args[i + 1], O_RDONLY);
-            if (input == -1) {
+            FILE* file = fopen(args[i + 1], "r");
+            if (file == NULL) {
                 err();
             }
-            dup2(input, STDIN_FILENO);
-            close(input);
-            args[i] = NULL;
-            args[i + 1] = NULL;
+
+            char buffer[1024];
+            if (fgets(buffer, sizeof(buffer), file) != NULL) {
+                rewind(file);
+                input = fileno(file);
+                dup2(input, STDIN_FILENO);
+                args[i] = NULL;
+                args[i + 1] = NULL;
+            }
+            else {
+                fclose(file);
+                exitCom();
+            }
         }
+
         else if (strcmp(args[i], ">") == 0) {
             output = open(args[i + 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
             if (output == -1) {
@@ -33,6 +43,7 @@ void redirect(char* command, char** args) {
             args[i + 1] = NULL;
         }
     }
-    execvp(command, args);
-    err();
+    if (execvp(command, args) == -1) {
+        err();
+    }
 }
