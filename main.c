@@ -37,24 +37,26 @@ int main() {
             char* lcopy = strdup(carr[j]);
             parse(carr[j], argArray);
             if (strcmp(carr[j], "exit")==0) {
+                printf("\n%s\n", lcopy);
                 exitCom();
                 break;
             }
             else if (strcmp(carr[j], "cd")==0) {
+                printf("\n%s\n", lcopy);
                 changeDir(argArray[1]);
+                printf("\n");
             }
             else if (strchr(lcopy, '|') != NULL){
-                // for (int k = 0; k<strlen(*argArray)+1; k++){
-                //     if (strcmp(argArray[k-1], "|") ==0 && k-2 >= 0){
-                //         pipee(argArray[k-2], argArray[k], argArray);
-                //     }
-                // }
+                printf("\n%s\n", lcopy);
                 pipee(lcopy);
+                printf("\n");
             }
             else if (strchr(lcopy, '<') != NULL || strchr(lcopy, '>') != NULL) {
                 redirect(argArray[0], argArray);
+                printf("\n");
             }
             else {
+                printf("\n%s\n", lcopy);
                 pid_t child = fork();
                 int status;
                 if(child<0) {
@@ -64,6 +66,7 @@ int main() {
                     pid_t p = getpid();  
                 } 
                 waitpid(child, &status, 0);
+                printf("\n");
             }
         }
     }
