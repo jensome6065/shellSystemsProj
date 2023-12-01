@@ -11,6 +11,10 @@
 
 int main() {
     while (1) {
+        if (feof(stdin)) {
+            err();
+        }
+
         char input[1024];
         char* argArray[64];
         char* check;

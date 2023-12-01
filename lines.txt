@@ -2,4 +2,3 @@ echo "hi"
 ls;echo "hello"
 ls -l
 ls | wc
-exit
