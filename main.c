@@ -12,7 +12,7 @@
 int main() {
     while (1) {
         if (feof(stdin)) {
-            err();
+            break;
         }
 
         char input[1024];
