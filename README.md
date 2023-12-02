@@ -23,11 +23,17 @@ void pipee(char* comm);
 parse: 
 
 exitCom:
+this function exits the program with no issues, so an exit status of 0, and prints a message stating it is exiting normally. 
 
 changeDir: 
 
 err: 
+this prints out an error message in the stdout and exits with an exit status of 1.
 
 redirect: 
 
 pipee:
+this mimics the pipe ability in the bash terminal, where the output of the left side of the pipe is the input of the right side of the pipe. our pipee function accounts for commands and commands with redirection.
+
+## bugs
+
