@@ -3,6 +3,6 @@
 
 void err();
 //prints error message and exits the process
-//returns int 
+//returns void 
 
 #endif
