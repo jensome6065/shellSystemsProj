@@ -4,7 +4,7 @@
 #include <errno.h>
 #include "err.h"
 
-int err() {
+void err() {
     printf("errno: %d \n", errno);
     printf("%s \n", strerror(errno));
     exit(1);
