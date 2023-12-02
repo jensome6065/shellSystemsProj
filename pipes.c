@@ -26,7 +26,6 @@ void pipee(char* comm){
         err();
     }
     int stdoutcopy = dup(STDOUT_FILENO);
-    // dup2(temp, STDOUT_FILENO);
     if (strchr(part1, '<') != NULL || strchr(part1, '>') != NULL){
         parse(part1, argarr);
         redirect(part1, argarr);
@@ -43,15 +42,6 @@ void pipee(char* comm){
         pid_t w = wait(&status);
         if(w==-1) err();
     }
-    // pid_t child = fork();
-    // int status;
-    // if(child<0) {
-    //     err();
-    // } else if (child == 0) {
-    //     if (execvp(part1, argarr)==-1) err();
-    // } 
-    // pid_t w = wait(&status);
-    // if(w==-1) err();
     if (strchr(part2, '<') != NULL || strchr(part2, '>') != NULL){
         parse(part2, argarr2);
         redirect(part2, argarr2);
@@ -74,20 +64,5 @@ void pipee(char* comm){
         pid_t w1 = wait(&status);
         if(w1==-1) err();
     }
-    // int i = 0;
-    // while(argarr2[i]!=NULL){
-    //     i++;
-    // }
-    // argarr2[i] = "tempfile";
-    // argarr2[i+1] = NULL;
-    // dup2(stdoutcopy, STDOUT_FILENO);    
-    // pid_t child1 = fork();
-    // if(child1<0) {
-    //     err();
-    // } else if (child1 == 0) {
-    //     if (execvp(part2, argarr2)==-1) err();
-    // } 
-    // pid_t w1 = wait(&status);
-    // if(w1==-1) err();
     close(temp);
  }
