@@ -68,8 +68,7 @@ int main() {
                 if(child<0) {
                     err();
                 } else if (child == 0) {
-                    execvp(carr[j], argArray);
-                    pid_t p = getpid();  
+                    if (execvp(carr[j], argArray)==-1) err();
                 } 
                 waitpid(child, &status, 0);
                 printf("\n");
