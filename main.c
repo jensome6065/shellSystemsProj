@@ -22,7 +22,9 @@ int main() {
 
         printf("command: ");
         fflush(stdout);
-        fgets(input, sizeof(input), stdin);
+        if (fgets(input, sizeof(input), stdin) == NULL) {
+            break;
+        }
         char* ip = input;
         printf("%s", input);
 
