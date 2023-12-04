@@ -39,3 +39,6 @@ this enables input and output redirection for commands. our redirect function fo
 this mimics the pipe ability in the bash terminal, where the output of the left side of the pipe is the input of the right side of the pipe. our pipee function accounts for commands and commands with redirection.
 
 ## bugs
+- our shell prints out the command in which you typed into the "command: " stdin prompt to ensure it recognizes the whole input line and can also be parsed properly if multiple commands
+- when we run ./shell.out < lines.txt, each line's command is outputted, before being parsed if multiple, and then executed to ensure every command is recognized and ran 
+- when "wc" is used with pipe '|', the file in which wc used will also be outputted after the numbers since we made a temporary file to store the output of the first command (ex. 19 19 161 tempfile)
