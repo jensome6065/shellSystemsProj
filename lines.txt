@@ -1,6 +1,15 @@
-echo "hi"
-ls;echo "hello"
+pwd
+ls
+echo "Hello, World!"
+ls -l | wc 
+ls > tempfile
+cat lines.txt
+echo "This is a test" > test.txt
+cat < lines.txt | grep "ls" > output.txt
+cat output.txt
+cat test.txt | wc
+ls -l | grep "txt"
+cd /
+pwd
 ls -l
-ls | wc
-ls -l
-ls | wc
+exit
