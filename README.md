@@ -12,7 +12,7 @@ void exitCom();
 
 void changeDir(char* input);
 
-int err();
+void err();
 
 void redirect(char* command, char** args);
 
@@ -20,20 +20,22 @@ void pipee(char* comm);
 
 ## description of features
 
-parse: 
+*parse:* 
+this takes in an input line and parses it into an array of arguments, using the strsep function to tokenize the input based on spaces within the input line. our parsed arguments are stored in an array with the last element set to NULL.
 
-exitCom:
+*exitCom:*
 this function exits the program with no issues, so an exit status of 0, and prints a message stating it is exiting normally. 
 
-changeDir: 
+*changeDir:*
+this changes the current working directory using chdir. if a target directory path is provided, the current working directory changes to the target, else it will change to the parent directory (".."). our changeDir function prints a message confirming that the directory has been changed. 
 
-err: 
+*err:*
 this prints out an error message in the stdout and exits with an exit status of 1.
 
-redirect: 
+*redirect:*
+this enables input and output redirection for commands. our redirect function forks a new process, sets up file descriptors for input and output based on whether it's accounting for input '<' or output '<' respectively, and executes the specified command. error handling is included for potential file-related and execvp issues. 
 
-pipee:
+*pipee:*
 this mimics the pipe ability in the bash terminal, where the output of the left side of the pipe is the input of the right side of the pipe. our pipee function accounts for commands and commands with redirection.
 
 ## bugs
-
